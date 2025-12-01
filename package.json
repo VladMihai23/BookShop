@@ -5,14 +5,19 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "migrate": "node-pg-migrate",
+    "migrate:up": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down"
   },
   "devDependencies": {
+    "node-pg-migrate": "^8.0.3",
     "prettier": "^3.3.1",
     "vite": "^7.2.4"
   },
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "pg-promise": "^12.3.0"
   }
 }

@@ -1,0 +1,9 @@
+{
+  "dev": {
+    "user": "postgres",
+    "password": "Vlad5432",
+    "host": "localhost",
+    "port": 5432,
+    "database": "BookShop"
+  }
+}
