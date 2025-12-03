@@ -24,8 +24,13 @@ app.get('/user', (req, res) => {
 app.use(express.static('public'))
 
 
-
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+const userRoutes = require('./routes/userRoutes');
+app.use(userRoutes);
+
