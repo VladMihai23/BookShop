@@ -41,3 +41,8 @@ app.use(userRoutes);
 const bookRoutes = require('./routes/bookRoutes');
 app.use('/', bookRoutes);
 
+const orderRoutes = require('./routes/orderRoutes');
+app.use(orderRoutes);
+
+const cartRoutes = require('./routes/cartRoutes');
+app.use(cartRoutes);
