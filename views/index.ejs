@@ -93,6 +93,15 @@
                                             </button>
 
                                             <% if (session.user && session.user.role === 'user') { %>
+                                                <form action="/wishlist/add/<%= book.id %>" method="POST">
+                                                    <button class="btn btn-outline-danger btn-sm w-100 mb-2">
+                                                        ❤️ Add to Wishlist
+                                                    </button>
+                                                </form>
+                                            <% } %>
+
+
+                                        <% if (session.user && session.user.role === 'user') { %>
                                                 <form action="/cart/add/<%= book.id %>" method="POST">
                                                     <div class="d-flex justify-content-center">
                                                         <button class="btn btn-success btn-sm mt-1"
@@ -223,6 +232,14 @@
                             <p><strong>Price:</strong> $<%= book.price %></p>
 
                             <p><%= book.description || "No description available." %></p>
+
+                            <% if (session.user && session.user.role === 'user') { %>
+                                <form action="/wishlist/add/<%= book.id %>" method="POST">
+                                    <button class="btn btn-outline-danger w-100 mt-3">
+                                        ❤️ Add to Wishlist
+                                    </button>
+                                </form>
+                            <% } %>
 
 
                             <a href="/books/<%= book.slug %>"

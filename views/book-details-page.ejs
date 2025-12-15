@@ -105,6 +105,15 @@
                             </a>
                         <% } %>
 
+                        <% if (session.user && session.user.role === 'user') { %>
+                            <form action="/wishlist/add/<%= book.id %>" method="POST">
+                                <button class="btn btn-outline-danger w-100 mt-3">
+                                    ❤️ Add to Wishlist
+                                </button>
+                            </form>
+                        <% } %>
+
+
                         <a href="/" class="btn btn-secondary mt-3 w-100">← Back to Home</a>
 
                     </div>

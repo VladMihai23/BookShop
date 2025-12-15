@@ -20,6 +20,7 @@ app.use(session({
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
+  res.locals.request = req;
   next();
 });
 
@@ -49,3 +50,6 @@ app.use(cartRoutes);
 
 const sitemapRoutes = require('./routes/sitemap');
 app.use('/', sitemapRoutes);
+
+app.use(require('./routes/wishlistRoutes'));
+
