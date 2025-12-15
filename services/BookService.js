@@ -26,6 +26,10 @@ class BookService {
     return await BookRepository.searchBooks(query);
   }
 
+  async getBookBySlug(slug) {
+    return await BookRepository.getBySlug(slug);
+  }
+
 }
 
 

@@ -98,6 +98,26 @@ class BookController {
     }
   }
 
+  async bookPage(req, res) {
+    try {
+      const slug = req.params.slug;
+      const book = await BookService.getBookBySlug(slug);
+
+      if (!book) return res.status(404).send("Book not found");
+
+      res.render("book-details-page", {
+        book,
+        pageTitle: `${book.title} – ${book.author} | BookShop`,
+        pageDescription: book.description?.substring(0, 150)
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error loading book page.");
+    }
+  }
+
+
+
 
 
 }

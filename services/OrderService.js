@@ -28,9 +28,18 @@ class OrderService {
     return OrderRepository.getAllOrders();
   }
 
-  getOrderDetails(orderId) {
-    return OrderRepository.getItemsByOrder(orderId);
+  async getOrderDetails(orderId) {
+    const order = await OrderRepository.getOrderById(orderId);
+    const items = await OrderRepository.getItemsByOrder(orderId);
+
+    if (!order) return null;
+
+    return {
+      ...order,
+      items
+    };
   }
+
 }
 
 module.exports = new OrderService();

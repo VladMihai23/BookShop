@@ -16,4 +16,6 @@ router.post('/admin/books/edit/:id', isAdmin, BookController.update);
 router.post('/admin/books/delete/:id', isAdmin, BookController.delete);
 router.post('/admin/books/create', isAdmin, BookController.create);
 
+router.get('/books/:slug', BookController.bookPage);
+
 module.exports = router;

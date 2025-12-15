@@ -46,3 +46,6 @@ app.use(orderRoutes);
 
 const cartRoutes = require('./routes/cartRoutes');
 app.use(cartRoutes);
+
+const sitemapRoutes = require('./routes/sitemap');
+app.use('/', sitemapRoutes);

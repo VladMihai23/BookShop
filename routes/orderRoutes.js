@@ -16,4 +16,9 @@ router.get('/my-orders', OrderController.myOrders);
 
 router.get('/admin/orders', isAdmin, OrderController.adminOrders);
 
+
+router.get('/my-orders', OrderController.myOrders);
+router.get('/my-orders/:id', OrderController.orderDetails);
+
+
 module.exports = router;

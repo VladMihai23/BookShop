@@ -50,6 +50,27 @@ class OrderController {
     res.render('my-orders', { orders });
   }
 
+  async orderDetails(req, res) {
+    if (!req.session.user) {
+      return res.redirect('/user');
+    }
+
+    const orderId = req.params.id;
+    const userId = req.session.user.id;
+
+    const order = await OrderService.getOrderDetails(orderId);
+
+    if (!order || order.user_id !== userId) {
+      return res.status(403).send("Access denied");
+    }
+
+    res.render('order-details', {
+      order,
+      items: order.items
+    });
+  }
+
+
   async adminOrders(req, res) {
     const orders = await OrderService.getAdminOrders();
     res.render('admin-orders', { orders });

@@ -1,5 +1,5 @@
 class BookModel {
-  constructor({id, title, author, genre, price, image_url, created_at, description}) {
+  constructor({id, title, author, genre, price, image_url, created_at, description, slug}) {
     this.id = id;
     this.title = title;
     this.author = author;
@@ -8,6 +8,7 @@ class BookModel {
     this.image_url = image_url;
     this.created_at = created_at;
     this.description = description;
+    this.slug = slug;
   }
 }
 
