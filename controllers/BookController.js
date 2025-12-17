@@ -6,7 +6,6 @@ class BookController {
     try {
       const allBooks = await BookService.getAllBooks();
 
-      // Build filter dropdown options from the full catalog (not the filtered list)
       const genres = Array.from(
         new Set((allBooks || []).map(b => b.genre).filter(Boolean))
       ).sort((a, b) => a.localeCompare(b));
@@ -40,7 +39,6 @@ class BookController {
         books.sort((a, b) => Number(b.price) - Number(a.price));
       }
 
-      // Group books into chunks of 4 for the carousel layout
       const grouped = [];
       for (let i = 0; i < books.length; i += 4) {
         grouped.push(books.slice(i, i + 4));
