@@ -4,15 +4,54 @@ class BookController {
 
   async homepage(req, res) {
     try {
-      const books = await BookService.getAllBooks();
+      const allBooks = await BookService.getAllBooks();
 
+      // Build filter dropdown options from the full catalog (not the filtered list)
+      const genres = Array.from(
+        new Set((allBooks || []).map(b => b.genre).filter(Boolean))
+      ).sort((a, b) => a.localeCompare(b));
 
+      const authors = Array.from(
+        new Set((allBooks || []).map(b => b.author).filter(Boolean))
+      ).sort((a, b) => a.localeCompare(b));
+
+      // Read filters from querystring
+      const filters = {
+        sort: (req.query.sort || "").toString(),
+        genre: (req.query.genre || "").toString(),
+        author: (req.query.author || "").toString()
+      };
+
+      // Apply filters
+      let books = [...(allBooks || [])];
+
+      if (filters.genre) {
+        books = books.filter(b => (b.genre || "") === filters.genre);
+      }
+
+      if (filters.author) {
+        books = books.filter(b => (b.author || "") === filters.author);
+      }
+
+      // Apply sorting
+      if (filters.sort === "price_asc") {
+        books.sort((a, b) => Number(a.price) - Number(b.price));
+      } else if (filters.sort === "price_desc") {
+        books.sort((a, b) => Number(b.price) - Number(a.price));
+      }
+
+      // Group books into chunks of 4 for the carousel layout
       const grouped = [];
       for (let i = 0; i < books.length; i += 4) {
         grouped.push(books.slice(i, i + 4));
       }
 
-      res.render("index", { books: grouped });
+      res.render("index", {
+        books: grouped,
+        genres,
+        authors,
+        filters
+      });
     } catch (err) {
       console.error(err);
       res.status(500).send("Error loading books.");

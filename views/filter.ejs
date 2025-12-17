@@ -1,0 +1,49 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="filtersOffcanvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Filtrare carti</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body">
+        <!-- IMPORTANT: action="/" -->
+        <form method="GET" action="/">
+
+            <div class="mb-3">
+                <label class="form-label">Sorteaza dupa pret</label>
+                <select name="sort" class="form-select">
+                    <option value="" <%= !filters.sort ? 'selected' : '' %>>Implicit</option>
+                    <option value="price_asc" <%= filters.sort === 'price_asc' ? 'selected' : '' %>>Low to High</option>
+                    <option value="price_desc" <%= filters.sort === 'price_desc' ? 'selected' : '' %>>High to Low</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Gen</label>
+                <select name="genre" class="form-select">
+                    <option value="">Toate</option>
+                    <% genres.forEach(g => { %>
+                        <option value="<%= g %>" <%= filters.genre === g ? 'selected' : '' %>>
+                            <%= g %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Autor</label>
+                <select name="author" class="form-select">
+                    <option value="">Toti</option>
+                    <% authors.forEach(a => { %>
+                        <option value="<%= a %>" <%= filters.author === a ? 'selected' : '' %>>
+                            <%= a %>
+                        </option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-dark w-100">Aplica filtre</button>
+            <a href="/" class="btn btn-outline-secondary w-100 mt-2">Reset</a>
+
+        </form>
+    </div>
+</div>

@@ -23,7 +23,19 @@
 
             <ul class="navbar-nav ms-auto">
 
-                <% if (session && session.user) { %>
+                <% if (request && request.path === '/') { %>
+                    <li class="nav-item">
+                        <a class="nav-link text-light"
+                           href="#"
+                           data-bs-toggle="offcanvas"
+                           data-bs-target="#filtersOffcanvas"
+                           aria-controls="filtersOffcanvas">
+                            <i class="bi bi-funnel-fill"></i> Filter
+                        </a>
+                    </li>
+                <% } %>
+
+            <% if (session && session.user) { %>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="/wishlist">
                             <i class="bi bi-heart-fill"></i> Wishlist
