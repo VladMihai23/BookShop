@@ -1,4 +1,5 @@
 const BookRepository = require('../repositories/BookRepository');
+const computeBM25 = require('../utils/bm25');
 
 class BookService {
 
@@ -23,12 +24,14 @@ class BookService {
   }
 
   async searchBooks(query) {
-    return await BookRepository.searchBooks(query);
+    const books = await BookRepository.getAll();
+    return computeBM25(books, query);
   }
 
   async getBookBySlug(slug) {
     return await BookRepository.getBySlug(slug);
   }
+
 
 }
 

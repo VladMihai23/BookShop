@@ -28,6 +28,7 @@
             <th>Genre</th>
             <th>Price</th>
             <th>Description</th>
+            <th>PDF</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -41,6 +42,13 @@
                 <td><%= book.genre %></td>
                 <td>$<%= book.price %></td>
                 <td><%= book.description %></td>
+                <td>
+                    <% if (book.pdf_url) { %>
+                        <a href="<%= book.pdf_url %>" target="_blank" class="btn btn-outline-primary btn-sm">View PDF</a>
+                    <% } else { %>
+                        <span class="text-muted">No PDF</span>
+                    <% } %>
+                </td>
                 <td>
                     <a href="/admin/books/edit/<%= book.id %>" class="btn btn-warning btn-sm">Edit</a>
 
@@ -73,6 +81,7 @@
                     <input class="form-control mb-2" name="author" placeholder="Author" required>
                     <input class="form-control mb-2" type="number" name="price" placeholder="Price" required>
                     <input class="form-control mb-2" name="image_url" placeholder="Image URL" required>
+                    <input class="form-control mb-2" name="pdf_url" placeholder="PDF URL:">
                     <textarea class="form-control" name="description" placeholder="Description"></textarea>
                 </div>
 

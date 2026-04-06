@@ -85,7 +85,7 @@ class BookController {
 
   async searchBooks(req, res) {
     try {
-      const query = req.query.q;
+      const query = req.query.q || "";
       const books = await BookService.searchBooks(query);
 
       res.render("search-results", {
@@ -115,10 +115,6 @@ class BookController {
       res.status(500).send("Error loading book page.");
     }
   }
-
-
-
-
 
 }
 

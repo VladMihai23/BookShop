@@ -34,8 +34,18 @@
         <label class="form-label">Image URL</label>
         <input class="form-control mb-3" name="image_url" value="<%= book.image_url %>" required>
 
+        <label class="form-label">PDF URL</label>
+        <input class="form-control mb-3" name="pdf_url" value="<%= book.pdf_url || '' %>" placeholder="/pdfs/book1.pdf">
+
         <label class="form-label">Description</label>
         <textarea class="form-control mb-3" name="description"><%= book.description %></textarea>
+
+        <% if (book.pdf_url) { %>
+            <p class="mb-3">
+                Current PDF:
+                <a href="<%= book.pdf_url %>" target="_blank">View current PDF</a>
+            </p>
+        <% } %>
 
         <button class="btn btn-primary">Save Changes</button>
         <a href="/admin/books" class="btn btn-secondary ms-2">Cancel</a>

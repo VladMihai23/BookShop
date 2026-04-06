@@ -92,6 +92,12 @@
                                                 Details
                                             </button>
 
+                                            <% if (book.pdf_url) { %>
+                                                <a href="<%= book.pdf_url %>" target="_blank" class="btn btn-outline-dark btn-sm w-100 mb-2">
+                                                    View PDF
+                                                </a>
+                                            <% } %>
+
                                             <% if (session.user && session.user.role === 'user') { %>
                                                 <form action="/wishlist/add/<%= book.id %>" method="POST">
                                                     <button class="btn btn-outline-danger btn-sm w-100 mb-2">
@@ -232,6 +238,12 @@
                             <p><strong>Price:</strong> $<%= book.price %></p>
 
                             <p><%= book.description || "No description available." %></p>
+
+                            <% if (book.pdf_url) { %>
+                                <a href="<%= book.pdf_url %>" target="_blank" class="btn btn-outline-dark w-100 mt-3">
+                                    View PDF
+                                </a>
+                            <% } %>
 
                             <% if (session.user && session.user.role === 'user') { %>
                                 <form action="/wishlist/add/<%= book.id %>" method="POST">

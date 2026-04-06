@@ -85,6 +85,12 @@
                         <h5 class="mt-4">Description:</h5>
                         <p><%= book.description || "No description available." %></p>
 
+                        <% if (book.pdf_url) { %>
+                            <a href="<%= book.pdf_url %>" target="_blank" class="btn btn-outline-dark mt-3 w-100">
+                                View PDF
+                            </a>
+                        <% } %>
+
                         <% if (session.user && session.user.role === 'user') { %>
                             <form action="/cart/add/<%= book.id %>" method="POST">
                                 <button class="btn btn-success mt-3 w-100">

@@ -15,34 +15,11 @@ class BookRepository {
   }
 
   async create(data) {
-    const generatedSlug = slugify(data.title); // corect
+    const generatedSlug = slugify(data.title);
 
     const result = await db.one(
-      `INSERT INTO books (title, author, price, genre, image_url, description, slug)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING *`,
-      [
-        data.title,
-        data.author,
-        data.price,
-        data.genre,
-        data.image_url,
-        data.description || null,
-        generatedSlug
-      ]
-    );
-
-    return new Book(result);
-  }
-
-  async update(id, data) {
-    const generatedSlug = slugify(data.title); // corect
-
-    const result = await db.one(
-      `UPDATE books
-       SET title=$1, author=$2, price=$3, genre=$4,
-           image_url=$5, description=$6, slug=$7
-       WHERE id=$8
+      `INSERT INTO books (title, author, price, genre, image_url, description, slug, pdf_url)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING *`,
       [
         data.title,
@@ -52,6 +29,31 @@ class BookRepository {
         data.image_url,
         data.description || null,
         generatedSlug,
+        data.pdf_url || null
+      ]
+    );
+
+    return new Book(result);
+  }
+
+  async update(id, data) {
+    const generatedSlug = slugify(data.title);
+
+    const result = await db.one(
+      `UPDATE books
+       SET title=$1, author=$2, price=$3, genre=$4,
+           image_url=$5, description=$6, slug=$7, pdf_url=$8
+       WHERE id=$9
+       RETURNING *`,
+      [
+        data.title,
+        data.author,
+        data.price,
+        data.genre,
+        data.image_url,
+        data.description || null,
+        generatedSlug,
+        data.pdf_url || null,
         id
       ]
     );
@@ -71,6 +73,7 @@ class BookRepository {
           OR LOWER(genre) LIKE LOWER('%' || $1 || '%')`,
       [query]
     );
+    
   }
 
   async getBySlug(slug) {
