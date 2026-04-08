@@ -17,5 +17,6 @@ router.post('/admin/books/delete/:id', isAdmin, BookController.delete);
 router.post('/admin/books/create', isAdmin, BookController.create);
 
 router.get('/books/:slug', BookController.bookPage);
+router.get('/api/autocomplete', BookController.autocomplete);
 
 module.exports = router;

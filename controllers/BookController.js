@@ -24,7 +24,9 @@ class BookController {
       const book = await BookService.getBookById(req.params.id);
       if (!book) return res.status(404).send("Book not found");
 
-      res.render("book-details", { book });
+      const similarBooks = await BookService.getSimilarBooks(book.id);
+
+      res.render("book-details", { book, similarBooks });
     } catch (err) {
       console.error(err);
       res.status(500).send("Error loading book.");
@@ -105,14 +107,28 @@ class BookController {
 
       if (!book) return res.status(404).send("Book not found");
 
+      const similarBooks = await BookService.getSimilarBooks(book.id);
+
       res.render("book-details-page", {
         book,
+        similarBooks,
         pageTitle: `${book.title} – ${book.author} | BookShop`,
         pageDescription: book.description?.substring(0, 150)
       });
     } catch (err) {
       console.error(err);
       res.status(500).send("Error loading book page.");
+    }
+  }
+
+  async autocomplete(req, res) {
+    try {
+      const query = req.query.q || "";
+      const suggestions = await BookService.getAutoCompleteSuggestions(query);
+      res.json(suggestions);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Autocomplete error" });
     }
   }
 

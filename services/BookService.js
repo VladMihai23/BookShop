@@ -1,10 +1,17 @@
 const BookRepository = require('../repositories/BookRepository');
 const computeBM25 = require('../utils/bm25');
+const autocompleteBooks = require('../utils/autocomplete');
+const getSimilarBooks = require('../utils/recommendations');
 
 class BookService {
 
   async getAllBooks() {
     return await BookRepository.getAll();
+  }
+
+  async getAutoCompleteSuggestions(query) {
+    const books = await BookRepository.getAll();
+    return autocompleteBooks(books, query);
   }
 
   async getBookById(id) {
@@ -32,7 +39,14 @@ class BookService {
     return await BookRepository.getBySlug(slug);
   }
 
+  async getSimilarBooks(bookId) {
+    const books = await BookRepository.getAll();
+    const targetBook = books.find(book => String(book.id) === String(bookId));
 
+    if (!targetBook) return [];
+
+    return getSimilarBooks(targetBook, books, 3);
+  }
 }
 
 
