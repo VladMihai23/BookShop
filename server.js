@@ -51,5 +51,8 @@ app.use(cartRoutes);
 const sitemapRoutes = require('./routes/sitemap');
 app.use('/', sitemapRoutes);
 
+const specSearchRoutes = require("./routes/specSearchRoutes");
+app.use(specSearchRoutes);
+
 app.use(require('./routes/wishlistRoutes'));
 
